@@ -1,0 +1,16 @@
+package com.castilloreyeskm.voglio.request;
+
+import com.castilloreyeskm.voglio.model.Category;
+
+import lombok.Data;
+
+@Data
+public class UpdateVoglioRequest {
+	private Long id;
+	private String name;
+	private String description;
+	private int priority;
+	private int quantity;
+	private boolean isActive;
+	private Category category;
+}

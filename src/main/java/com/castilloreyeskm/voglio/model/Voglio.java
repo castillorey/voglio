@@ -10,14 +10,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class Voglio {
@@ -33,7 +31,16 @@ public class Voglio {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "category_id")
 	private Category category;
-	
+
 	@OneToMany(mappedBy = "voglio", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Image> images;
+
+	public Voglio(String name, String description, int priority, int quantity, boolean isActive, Category category) {
+		this.name = name;
+		this.description = description;
+		this.priority = priority;
+		this.quantity = quantity;
+		this.isActive = isActive;
+		this.category = category;
+	}
 }
