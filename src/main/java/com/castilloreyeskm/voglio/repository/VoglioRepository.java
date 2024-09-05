@@ -8,7 +8,7 @@ import com.castilloreyeskm.voglio.model.Voglio;
 
 public interface VoglioRepository extends JpaRepository<Voglio, Long> {
 
-	List<Voglio> findByCategory(String categoryName);
+	List<Voglio> findByCategoryName(String categoryName);
 
 	List<Voglio> findByName(String voglioName);
 

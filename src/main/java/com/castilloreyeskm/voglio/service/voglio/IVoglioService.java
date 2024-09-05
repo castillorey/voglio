@@ -7,7 +7,7 @@ import com.castilloreyeskm.voglio.request.AddVoglioRequest;
 import com.castilloreyeskm.voglio.request.UpdateVoglioRequest;
 
 public interface IVoglioService {
-	Voglio addProduct(AddVoglioRequest voglio);
+	Voglio addVoglio(AddVoglioRequest voglio);
 
 	Voglio getVoglioById(Long id);
 

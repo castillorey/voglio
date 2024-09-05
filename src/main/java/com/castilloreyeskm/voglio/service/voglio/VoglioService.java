@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.castilloreyeskm.voglio.exceptions.VoglioNotFoundException;
+import com.castilloreyeskm.voglio.exceptions.ResourceNotFoundException;
 import com.castilloreyeskm.voglio.model.Category;
 import com.castilloreyeskm.voglio.model.Voglio;
 import com.castilloreyeskm.voglio.repository.CategoryRepository;
@@ -23,7 +23,7 @@ public class VoglioService implements IVoglioService {
     private final CategoryRepository categoryRepository;
 
     @Override
-    public Voglio addProduct(AddVoglioRequest request) {
+    public Voglio addVoglio(AddVoglioRequest request) {
         Category category = Optional.ofNullable(categoryRepository.findByName(request.getCategory().getName()))
                 .orElseGet(() -> {
                     Category newCategory = new Category(request.getCategory().getName());
@@ -46,14 +46,14 @@ public class VoglioService implements IVoglioService {
     @Override
     public Voglio getVoglioById(Long id) {
         return voglioRepository.findById(id)
-                .orElseThrow(() -> new VoglioNotFoundException("Voglio not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Voglio not found"));
     }
 
     @Override
     public void deleteVoglioById(Long id) {
         voglioRepository.findById(id).ifPresentOrElse(voglioRepository::delete,
                 () -> {
-                    throw new VoglioNotFoundException("Voglio not found");
+                    throw new ResourceNotFoundException("Voglio not found");
                 });
     }
 
@@ -62,7 +62,7 @@ public class VoglioService implements IVoglioService {
         return voglioRepository.findById(voglioId)
                 .map(existingVoglio -> updateExistingVoglio(existingVoglio, request))
                 .map(voglioRepository::save)
-                .orElseThrow(() -> new VoglioNotFoundException("Voglio not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Voglio not found"));
     }
 
     private Voglio updateExistingVoglio(Voglio existingVoglio, UpdateVoglioRequest request) {
@@ -84,7 +84,7 @@ public class VoglioService implements IVoglioService {
 
     @Override
     public List<Voglio> getVogliosByCategory(String categoryName) {
-        return voglioRepository.findByCategory(categoryName);
+        return voglioRepository.findByCategoryName(categoryName);
     }
 
     @Override
