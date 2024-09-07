@@ -3,6 +3,7 @@ package com.castilloreyeskm.voglio.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.castilloreyeskm.voglio.dto.VoglioDto;
 import com.castilloreyeskm.voglio.exceptions.ResourceNotFoundException;
 import com.castilloreyeskm.voglio.model.Voglio;
 import com.castilloreyeskm.voglio.request.AddVoglioRequest;
@@ -36,14 +37,14 @@ public class VoglioController {
 
 	@GetMapping("/all")
 	public ResponseEntity<ApiResponse> getAllVoglios() {
-		List<Voglio> voglios = voglioService.getAllVoglios();
+		List<VoglioDto> voglios = voglioService.getAllVoglios();
 		return ResponseEntity.ok(new ApiResponse("Voglios found", voglios));
 	}
 
 	@GetMapping("{id}/voglio")
 	public ResponseEntity<ApiResponse> getVoglioById(@PathVariable Long id) {
 		try {
-			Voglio voglio = voglioService.getVoglioById(id);
+			VoglioDto voglio = voglioService.getVoglioById(id);
 			return ResponseEntity.ok(new ApiResponse("Voglio found", voglio));
 		} catch (ResourceNotFoundException e) {
 			return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
@@ -53,7 +54,7 @@ public class VoglioController {
 	@PostMapping("add")
 	public ResponseEntity<ApiResponse> addVoglio(@RequestBody AddVoglioRequest request) {
 		try {
-			Voglio newVoglio = voglioService.addVoglio(request);
+			VoglioDto newVoglio = voglioService.addVoglio(request);
 			return ResponseEntity.ok(new ApiResponse("Add successful", newVoglio));
 		} catch (Exception e) {
 			return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new ApiResponse(e.getMessage(), null));
@@ -63,7 +64,7 @@ public class VoglioController {
 	@PutMapping("{id}/update")
 	public ResponseEntity<ApiResponse> updateVoglio(@RequestBody UpdateVoglioRequest request, @PathVariable Long id) {
 		try {
-			Voglio updatedVoglio = voglioService.updateVoglio(request, id);
+			VoglioDto updatedVoglio = voglioService.updateVoglio(request, id);
 			return ResponseEntity.ok(new ApiResponse("Update successful", updatedVoglio));
 		} catch (ResourceNotFoundException e) {
 			return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
@@ -83,7 +84,7 @@ public class VoglioController {
 	@GetMapping("/category/{category}")
     public ResponseEntity<ApiResponse> findVogliosByCategory(@PathVariable String category) {
         try {
-            List<Voglio> voglios = voglioService.getVogliosByCategory(category);
+            List<VoglioDto> voglios = voglioService.getVogliosByCategory(category);
             if (voglios.isEmpty()) {
                 return ResponseEntity.status(NOT_FOUND).body(new ApiResponse("No voglios found ", null));
             }
@@ -96,7 +97,7 @@ public class VoglioController {
 	@GetMapping("/name/{name}")
     public ResponseEntity<ApiResponse> getVoglioByName(@PathVariable String name){
         try {
-            List<Voglio> voglios = voglioService.getVogliosByName(name);
+            List<VoglioDto> voglios = voglioService.getVogliosByName(name);
             if (voglios.isEmpty()) {
                 return ResponseEntity.status(NOT_FOUND).body(new ApiResponse("No voglios found ", null));
             }
