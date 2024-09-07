@@ -26,7 +26,7 @@ public class Voglio {
 	private String description;
 	private int priority;
 	private int quantity;
-	private boolean isActive;
+	private boolean active;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "category_id")
@@ -35,12 +35,12 @@ public class Voglio {
 	@OneToMany(mappedBy = "voglio", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Image> images;
 
-	public Voglio(String name, String description, int priority, int quantity, boolean isActive, Category category) {
+	public Voglio(String name, String description, int priority, int quantity, boolean active, Category category) {
 		this.name = name;
 		this.description = description;
 		this.priority = priority;
 		this.quantity = quantity;
-		this.isActive = isActive;
+		this.active = active;
 		this.category = category;
 	}
 }

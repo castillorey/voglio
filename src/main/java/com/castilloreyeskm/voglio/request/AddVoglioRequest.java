@@ -11,6 +11,6 @@ public class AddVoglioRequest {
 	private String description;
 	private int priority;
 	private int quantity;
-	private boolean isActive;
+	private boolean active;
 	private Category category;
 }
