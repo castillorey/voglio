@@ -52,10 +52,9 @@ public class VoglioService implements IVoglioService {
     }
 
     @Override
-    public VoglioDto getVoglioById(Long id) {
-        Voglio voglio = voglioRepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Voglio not found"));
-        return convertToDto(voglio);
+    public Voglio getVoglioById(Long id) {
+        return voglioRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Voglio not found"));
     }
 
     @Override
@@ -109,7 +108,8 @@ public class VoglioService implements IVoglioService {
         return voglios.stream().map(this::convertToDto).toList();
     }
 
-    private VoglioDto convertToDto(Voglio voglio) {
+    @Override
+    public VoglioDto convertToDto(Voglio voglio) {
         VoglioDto voglioDto = modelMapper.map(voglio, VoglioDto.class);
         List<Image> images = imageRepository.findByVoglioId(voglio.getId());
         List<ImageDto> imageDtos = images.stream()

@@ -10,7 +10,7 @@ import com.castilloreyeskm.voglio.request.UpdateVoglioRequest;
 public interface IVoglioService {
 	VoglioDto addVoglio(AddVoglioRequest voglio);
 
-	VoglioDto getVoglioById(Long id);
+	Voglio getVoglioById(Long id);
 
 	void deleteVoglioById(Long id);
 
@@ -21,4 +21,6 @@ public interface IVoglioService {
 	List<VoglioDto> getVogliosByCategory(String categoryName);
 
 	List<VoglioDto> getVogliosByName(String voglioName);
+
+	VoglioDto convertToDto(Voglio voglio);
 }

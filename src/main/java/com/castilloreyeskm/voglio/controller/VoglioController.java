@@ -44,8 +44,9 @@ public class VoglioController {
 	@GetMapping("{id}/voglio")
 	public ResponseEntity<ApiResponse> getVoglioById(@PathVariable Long id) {
 		try {
-			VoglioDto voglio = voglioService.getVoglioById(id);
-			return ResponseEntity.ok(new ApiResponse("Voglio found", voglio));
+			Voglio voglio = voglioService.getVoglioById(id);
+			VoglioDto voglioDto = voglioService.convertToDto(voglio);
+			return ResponseEntity.ok(new ApiResponse("Voglio found", voglioDto));
 		} catch (ResourceNotFoundException e) {
 			return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
 		}
