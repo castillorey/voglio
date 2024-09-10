@@ -15,8 +15,8 @@ import com.castilloreyeskm.voglio.model.Voglio;
 import com.castilloreyeskm.voglio.repository.CategoryRepository;
 import com.castilloreyeskm.voglio.repository.ImageRepository;
 import com.castilloreyeskm.voglio.repository.VoglioRepository;
-import com.castilloreyeskm.voglio.request.AddVoglioRequest;
-import com.castilloreyeskm.voglio.request.UpdateVoglioRequest;
+import com.castilloreyeskm.voglio.request.VoglioAddRequest;
+import com.castilloreyeskm.voglio.request.VoglioUpdateRequest;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,7 +30,7 @@ public class VoglioService implements IVoglioService {
     private final ModelMapper modelMapper;
 
     @Override
-    public VoglioDto addVoglio(AddVoglioRequest request) {
+    public VoglioDto addVoglio(VoglioAddRequest request) {
         Category category = Optional.ofNullable(categoryRepository.findByName(request.getCategory().getName()))
                 .orElseGet(() -> {
                     Category newCategory = new Category(request.getCategory().getName());
@@ -41,7 +41,7 @@ public class VoglioService implements IVoglioService {
         return convertToDto(newVoglio);
     }
 
-    private Voglio createVoglio(AddVoglioRequest request, Category category) {
+    private Voglio createVoglio(VoglioAddRequest request, Category category) {
         return new Voglio(
                 request.getName(),
                 request.getDescription(),
@@ -66,7 +66,7 @@ public class VoglioService implements IVoglioService {
     }
 
     @Override
-    public VoglioDto updateVoglio(UpdateVoglioRequest request, Long voglioId) {
+    public VoglioDto updateVoglio(VoglioUpdateRequest request, Long voglioId) {
         Voglio voglio = voglioRepository.findById(voglioId)
                 .map(existingVoglio -> updateExistingVoglio(existingVoglio, request))
                 .map(voglioRepository::save)
@@ -74,7 +74,7 @@ public class VoglioService implements IVoglioService {
         return convertToDto(voglio);
     }
 
-    private Voglio updateExistingVoglio(Voglio existingVoglio, UpdateVoglioRequest request) {
+    private Voglio updateExistingVoglio(Voglio existingVoglio, VoglioUpdateRequest request) {
         existingVoglio.setName(request.getName());
         existingVoglio.setDescription(request.getDescription());
         existingVoglio.setPriority(request.getPriority());

@@ -5,7 +5,7 @@ import com.castilloreyeskm.voglio.model.Category;
 import lombok.Data;
 
 @Data
-public class UpdateVoglioRequest {
+public class VoglioAddRequest {
 	private Long id;
 	private String name;
 	private String description;

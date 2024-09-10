@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.castilloreyeskm.voglio.dto.VoglioDto;
 import com.castilloreyeskm.voglio.exceptions.ResourceNotFoundException;
 import com.castilloreyeskm.voglio.model.Voglio;
-import com.castilloreyeskm.voglio.request.AddVoglioRequest;
-import com.castilloreyeskm.voglio.request.UpdateVoglioRequest;
+import com.castilloreyeskm.voglio.request.VoglioAddRequest;
+import com.castilloreyeskm.voglio.request.VoglioUpdateRequest;
 import com.castilloreyeskm.voglio.response.ApiResponse;
 import com.castilloreyeskm.voglio.service.voglio.IVoglioService;
 
@@ -53,7 +53,7 @@ public class VoglioController {
 	}
 
 	@PostMapping("add")
-	public ResponseEntity<ApiResponse> addVoglio(@RequestBody AddVoglioRequest request) {
+	public ResponseEntity<ApiResponse> addVoglio(@RequestBody VoglioAddRequest request) {
 		try {
 			VoglioDto newVoglio = voglioService.addVoglio(request);
 			return ResponseEntity.ok(new ApiResponse("Add successful", newVoglio));
@@ -63,7 +63,7 @@ public class VoglioController {
 	}
 	
 	@PutMapping("{id}/update")
-	public ResponseEntity<ApiResponse> updateVoglio(@RequestBody UpdateVoglioRequest request, @PathVariable Long id) {
+	public ResponseEntity<ApiResponse> updateVoglio(@RequestBody VoglioUpdateRequest request, @PathVariable Long id) {
 		try {
 			VoglioDto updatedVoglio = voglioService.updateVoglio(request, id);
 			return ResponseEntity.ok(new ApiResponse("Update successful", updatedVoglio));
