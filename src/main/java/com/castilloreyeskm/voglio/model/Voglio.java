@@ -32,6 +32,10 @@ public class Voglio {
 	@JoinColumn(name = "category_id")
 	private Category category;
 
+	@ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
 	@OneToMany(mappedBy = "voglio", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Image> images;
 
