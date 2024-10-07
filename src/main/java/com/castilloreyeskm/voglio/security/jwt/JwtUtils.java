@@ -19,9 +19,9 @@ import java.security.Key;
 
 @Component
 public class JwtUtils {
-    @Value("{auth.token.jwtSecret}")
+    @Value("${auth.token.jwtSecret}")
     private String jwtSecret;
-    @Value("auth.token.expirationInMils")
+    @Value("${auth.token.expirationInMils}")
     private int expirationTime;
 
     public String generateTokenForUser(Authentication authentication) {
